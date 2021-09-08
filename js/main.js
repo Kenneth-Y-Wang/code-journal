@@ -34,13 +34,8 @@ function entryDisplay(event) {
     var $newEntry = renderData(data.entries[i]);
     $newEntries.appendChild($newEntry);
   }
-  for (var j = 0; j < $view.length; j++) {
-    if ($view[j].getAttribute('data-view') === data.view) {
-      $view[j].className = ' view ';
-    } else {
-      $view[j].className = 'view hidden';
-    }
-  }
+  viewchange(data.view);
+
 }
 
 document.addEventListener('DOMContentLoaded', entryDisplay);
@@ -98,15 +93,9 @@ var $view = document.querySelectorAll('.view');
 var $newButton = document.querySelector('.newButton');
 var $submitButton = document.querySelector('.submitButton');
 
-function viewchange(event) {
-
-  if (event.target.matches('.tab') === false) {
-    return;
-  }
-  var dataView = event.target.getAttribute('data-view');
-
+function viewchange(string) {
   for (var i = 0; i < $view.length; i++) {
-    if ($view[i].getAttribute('data-view') === dataView) {
+    if ($view[i].getAttribute('data-view') === string) {
       $view[i].className = ' view ';
       data.view = $view[i].getAttribute('data-view');
     } else {
@@ -115,6 +104,11 @@ function viewchange(event) {
   }
 }
 
-$tabList.addEventListener('click', viewchange);
-$newButton.addEventListener('click', viewchange);
-$submitButton.addEventListener('click', viewchange);
+function handleViewNav(event) {
+  var dataView = event.target.getAttribute('data-view');
+  viewchange(dataView);
+}
+
+$tabList.addEventListener('click', handleViewNav);
+$newButton.addEventListener('click', handleViewNav);
+$submitButton.addEventListener('click', handleViewNav);
