@@ -13,6 +13,13 @@ body {
 
 .appTitle {
   font-weight: 400;
+  display: inline-block;
+}
+
+.entries {
+  margin-left: 1.5rem;
+  font-weight: 400;
+  display: inline-block;
 }
 
 .formTitle {
@@ -77,8 +84,39 @@ button {
   justify-content: flex-end;
 }
 
+.list-group {
+  padding-left: 0;
+}
+
+.entryBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.newButton {
+  width: 75px;
+  height: 40px;
+}
+
+li {
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  cursor: pointer;
+}
+
 .pd-l-75 {
   padding-left: 0.75rem;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.space-between {
+  justify-content: space-between;
 }
 
 @media screen and (min-width: 768px) {
