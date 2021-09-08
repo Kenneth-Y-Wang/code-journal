@@ -13,12 +13,53 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Proza+Libre:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-  </header>
-  <main>
-  </main>
+    <header>
+      <div class=" container">
+        <h2 class="appTitle pd-l-75">Code Journal</h2>
+      </div>
+    </header>
+    <main class="container">
+      <div data-view="entry-form">
+        <form id="entryForm">
+          <h1 class="formTitle pd-l-75">New Entry</h1>
+          <div class="row">
+            <div class=" column-half">
+              <div class="picHolder"><img class="picView" src="images/placeholder-image-square.jpg"></div>
+            </div>
+            <div class= " column-half">
+              <label for="title">Title</label>
+              <input
+              required
+              name="title"
+              id="title"
+              type="text">
+              <label for="photoUrl">Photo URL</label>
+              <input
+              required
+              name="photoUrl"
+              id="photoUrl"
+              type="url">
+            </div>
+            <div class="column-full">
+              <label class="forNote" for="notes">Notes</label>
+              <textarea
+              required
+              rows="6"
+              name="notes"
+              id="notes"></textarea>
+            </div>
+            <div class="submitAction column-full">
+              <button type="submit">SAVE</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>

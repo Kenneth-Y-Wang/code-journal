@@ -1,0 +1,91 @@
+header {
+  background-color: #48266d;
+  color: white;
+  width: 100%;
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
+}
+
+body {
+  background-color: #f0f0f0;
+  font-family: 'Proza Libre', sans-serif;
+}
+
+.appTitle {
+  font-weight: 400;
+}
+
+.formTitle {
+  font-weight: 600;
+}
+
+.picHolder {
+  width: 100%;
+}
+
+.picHolder > img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 2%;
+}
+
+label,
+input,
+textarea {
+  display: block;
+  width: 100%;
+}
+
+label {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+input,
+textarea {
+  padding: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.25rem;
+  border: 2px solid #b6b6b6;
+  font-size: 1rem;
+  font-family: 'Proza Libre', sans-serif;
+  background-color: #fcfcfc;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border: 2px solid #562b81;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  color: #f2f2f2;
+  background-color: #562b81;
+  cursor: pointer;
+  font-family: 'Proza Libre', sans-serif;
+}
+
+.submitAction {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pd-l-75 {
+  padding-left: 0.75rem;
+}
+
+@media screen and (min-width: 768px) {
+  .picHolder > img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 2%;
+  }
+}
