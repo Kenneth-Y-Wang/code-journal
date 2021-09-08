@@ -105,6 +105,11 @@ function viewchange(string) {
 }
 
 function handleViewNav(event) {
+
+  if (event.target.matches('.tab') === false) {
+    return;
+  }
+
   var dataView = event.target.getAttribute('data-view');
   viewchange(dataView);
 }
