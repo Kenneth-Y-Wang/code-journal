@@ -2,9 +2,6 @@
 var $photoUrl = document.querySelector('#photoUrl');
 var $picView = document.querySelector('.picView');
 
-console.log($photoUrl),
-console.log($picView);
-
 function showPicture(event) {
   if (event.target.value !== '') {
     $picView.setAttribute('src', event.target.value);
@@ -12,6 +9,7 @@ function showPicture(event) {
 }
 
 $photoUrl.addEventListener('input', showPicture);
+
 var data = {
   view: 'entry-form',
   entries: [],
@@ -20,21 +18,18 @@ var data = {
 };
 
 var $entryForm = document.querySelector('#entryForm');
-
-console.log($entryForm);
-var nextEntryId = 0;
+var entryId = 0;
 
 $entryForm.addEventListener('submit', function () {
   event.preventDefault();
-  nextEntryId++;
+  entryId++;
   var entryData = {};
   entryData.title = $entryForm.elements.title.value;
   entryData.photoUrl = $entryForm.elements.photoUrl.value;
   entryData.notes = $entryForm.elements.notes.value;
-  entryData.nextEntryId = nextEntryId;
+  entryData.nextEntryId = entryId;
   data.entries.push(entryData);
-  console.log(entryData);
-  console.log(data);
+  data.nextEntryId = entryId;
   $picView.setAttribute('src', 'images/placeholder-image-square.jpg');
   $entryForm.reset();
 });
