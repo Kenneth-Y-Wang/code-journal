@@ -19,12 +19,13 @@
 </head>
 <body>
     <header>
-      <div class=" container">
-        <h2 class="appTitle pd-l-75">Code Journal</h2>
+      <div class=" tabList container">
+        <a><h2 class=" tab appTitle pd-l-75" data-view="entry-form" >Code Journal</h2></a>
+        <a><h3 class=" tab entries" data-view="entries">Entries</h3></a>
       </div>
     </header>
     <main class="container">
-      <div data-view="entry-form">
+      <div class="view" id="form-view" data-view="entry-form">
         <form id="entryForm">
           <h1 class="formTitle pd-l-75">New Entry</h1>
           <div class="row">
@@ -54,10 +55,17 @@
               id="notes"></textarea>
             </div>
             <div class="submitAction column-full">
-              <button type="submit">SAVE</button>
+              <button class="tab submitButton" data-view="entries" type="submit">SAVE</button>
             </div>
           </div>
         </form>
+      </div>
+      <div class="view hidden" id="entry-view" data-view="entries">
+        <div class="entryBar column-full">
+          <h1 class="formTitle">Entries</h1>
+          <button class="tab newButton" data-view="entry-form" type="button">NEW</button>
+        </div>
+        <ul id="entries-list" class= "list-group"></ul>
       </div>
     </main>
   <script src="js/data.js"></script>
