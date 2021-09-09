@@ -56,7 +56,7 @@ function entryDisplay(event) {
     var $newEntry = renderData(data.entries[i]);
     $newEntries.appendChild($newEntry);
   }
-  viewchange(data.view);
+  viewChange(data.view);
 
 }
 
@@ -72,7 +72,7 @@ $entryView.addEventListener('click', function (event) {
   if (event.target.matches('.editPen') === false) {
     return;
   }
-  viewchange(event.target.getAttribute('data-view'));
+  viewChange(event.target.getAttribute('data-view'));
   $formTitle.textContent = 'Edit Entry';
 
   for (var i = 0; i < data.entries.length; i++) {
@@ -172,7 +172,7 @@ var $view = document.querySelectorAll('.view');
 var $newButton = document.querySelector('.newButton');
 var $submitButton = document.querySelector('.submitButton');
 
-function viewchange(string) {
+function viewChange(string) {
   for (var i = 0; i < $view.length; i++) {
     if ($view[i].getAttribute('data-view') === string) {
       $view[i].className = ' view ';
@@ -188,7 +188,7 @@ function handleViewNav(event) {
     return;
   }
   var dataView = event.target.getAttribute('data-view');
-  viewchange(dataView);
+  viewChange(dataView);
   $formTitle.textContent = 'New Entry';
 }
 
