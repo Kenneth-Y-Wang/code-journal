@@ -4,7 +4,7 @@
 var $photoUrl = document.querySelector('#photoUrl');
 var $picView = document.querySelector('.picView');
 
-function showPicture(event) { // here show the img right away
+function showPicture(event) {
   if (event.target.value !== '') {
     $picView.setAttribute('src', event.target.value);
   }
@@ -30,15 +30,12 @@ $entryForm.addEventListener('submit', function () {
         data.entries[i].photoUrl = entryData.photoUrl;
         data.entries[i].notes = entryData.notes;
         var $allEntry = document.querySelectorAll('.allEntries');
-        // console.log($allEntry);
+
         for (var j = 0; j < $allEntry.length; j++) {
           if ($allEntry[i].getAttribute('data-entry-id') === String(data.editing.entryId)) {
             $allEntry[i].replaceWith(renderData(data.entries[i]));
           }
         }
-
-        // renderData(data.editing).replaceWith(renderData(data.entries[i]));
-        // data.editing = null;
       }
     }
   } else {
@@ -85,9 +82,7 @@ $entryView.addEventListener('click', function (event) {
       $notes.value = data.entries[i].notes;
       $picView.setAttribute('src', data.entries[i].photoUrl);
       data.editing = data.entries[i];
-      // console.log(data.entries[i].entryId);
-      // console.log(event.target.getAttribute('data-entry-id'));
-      // console.log(data);
+
     }
   }
 
@@ -126,8 +121,8 @@ var $newEntries = document.querySelector('.list-group');
 
 function renderData(data) {
   var $newList = document.createElement('li');
-  $newList.setAttribute('class', 'row allEntries'); // just added
-  $newList.setAttribute('data-entry-id', data.entryId); // just added
+  $newList.setAttribute('class', 'row allEntries');
+  $newList.setAttribute('data-entry-id', data.entryId);
 
   var $listPic = document.createElement('div');
   $listPic.setAttribute('class', 'column-half');
@@ -195,8 +190,6 @@ function handleViewNav(event) {
   var dataView = event.target.getAttribute('data-view');
   viewchange(dataView);
   $formTitle.textContent = 'New Entry';
-  // $entryForm.reset(); // tryyyyyyyyyyyyyyyy
-  // data.editing = null; // lastttttttttttttttt entry
 }
 
 $tabList.addEventListener('click', handleViewNav);

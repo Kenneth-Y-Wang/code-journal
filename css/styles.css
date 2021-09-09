@@ -113,8 +113,18 @@ li {
   margin-bottom: 1.5rem;
 }
 
-.tab {
+.tab,
+.editPen {
   cursor: pointer;
+}
+
+.editPen {
+  color: #7b2cbf;
+  font-size: 1.5rem;
+}
+
+.editPen:hover {
+  color: #562b81;
 }
 
 .pd-l-75 {
