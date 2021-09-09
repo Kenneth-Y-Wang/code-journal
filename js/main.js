@@ -68,8 +68,7 @@ function callModal(event) {
   }
 }
 
-$confirm.addEventListener('click', function () {
-
+function deleteEntry(event) {
   for (var i = 0; i < data.entries.length; i++) {
     if (data.entries[i].entryId === data.editing.entryId) {
       data.entries.splice(i, 1);
@@ -87,8 +86,10 @@ $confirm.addEventListener('click', function () {
   viewChange(event.target.getAttribute('data-view'));
   callModal(event);
   $deleteTag.className = 'deleteTag noShow';
-});
+  data.editing = null;
+}
 
+$confirm.addEventListener('click', deleteEntry);
 $deleteTag.addEventListener('click', callModal);
 $cancel.addEventListener('click', callModal);
 
