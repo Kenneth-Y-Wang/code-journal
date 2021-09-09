@@ -40,6 +40,33 @@ function entryDisplay(event) {
 
 document.addEventListener('DOMContentLoaded', entryDisplay);
 
+var $entryView = document.querySelector('#entry-view');
+var $title = document.querySelector('#title');
+var $notes = document.querySelector('#notes');
+var $formTitle = document.querySelector('.formTitle');
+
+$entryView.addEventListener('click', function (event) {
+  if (event.target.matches('.editPen') === false) {
+    return;
+  }
+  viewchange(event.target.getAttribute('data-view'));
+  $formTitle.textContent = 'Edit Entry';
+
+  for (var i = 0; i < data.entries.length; i++) {
+    if (String(data.entries[i].entryId) === event.target.getAttribute('data-entry-id')) {
+      $title.value = data.entries[i].title;
+      $photoUrl.value = data.entries[i].photoUrl;
+      $notes.value = data.entries[i].notes;
+      $picView.setAttribute('src', data.entries[i].photoUrl);
+      data.editing = data.entries[i];
+      // console.log(data.entries[i].entryId);
+      // console.log(event.target.getAttribute('data-entry-id'));
+      // console.log(data);
+    }
+  }
+
+});
+
 // <li class="row">
 //  <div class=" column-half">
 //    <div class="picHolder"><img class="picView" src="images/placeholder-image-square.jpg"></div>
@@ -50,6 +77,23 @@ document.addEventListener('DOMContentLoaded', entryDisplay);
 //      America collection on Digital now!</p>
 //  </div>
 // </li>
+
+// updated dom tree
+
+// < li class="row" >
+//  <div class=" column-half">
+//    <div class="picHolder"><img class="picView" src="images/placeholder-image-square.jpg"></div>
+//    </div>
+//  <div class="column-half entryInfo">
+//    <div class="entryEdit column-full">
+//     <h2 class="entryTitle">Marvels Movie</h2>
+//     <i class=" editPen fas fa-pen" data-entry-id ='' data-view="entry-form" ></i>
+//    </div>
+//    <p class="entryNote">Our salute to Captain America and his uniforms in the MCU. Which is your favorite? Complete
+//     your Marvel Studios' Captain
+//    America collection on Digital now!</p>
+//    </div>
+//  </li >
 
 var $newEntries = document.querySelector('.list-group');
 
@@ -70,8 +114,16 @@ function renderData(data) {
   var $entryInfo = document.createElement('div');
   $entryInfo.setAttribute('class', 'column-half entryInfo');
 
+  var $entryEdit = document.createElement('div');
+  $entryEdit.setAttribute('class', 'entryEdit column-full');
+
   var $entryTitle = document.createElement('h2');
   $entryTitle.textContent = data.title;
+
+  var $editPen = document.createElement('i');
+  $editPen.setAttribute('class', 'editPen fas fa-pen');
+  $editPen.setAttribute('data-entry-id', data.entryId);
+  $editPen.setAttribute('data-view', 'entry-form');
 
   var $entryNote = document.createElement('p');
   $entryNote.textContent = data.notes;
@@ -82,8 +134,11 @@ function renderData(data) {
   $listPic.appendChild($picHolder);
   $picHolder.appendChild($pic);
 
-  $entryInfo.appendChild($entryTitle);
+  $entryInfo.appendChild($entryEdit);
   $entryInfo.appendChild($entryNote);
+
+  $entryEdit.appendChild($entryTitle);
+  $entryEdit.appendChild($editPen);
 
   return $newList;
 }
@@ -105,13 +160,12 @@ function viewchange(string) {
 }
 
 function handleViewNav(event) {
-
   if (event.target.matches('.tab') === false) {
     return;
   }
-
   var dataView = event.target.getAttribute('data-view');
   viewchange(dataView);
+  $formTitle.textContent = 'New Entry';
 }
 
 $tabList.addEventListener('click', handleViewNav);

@@ -88,15 +88,25 @@ button {
   padding-left: 0;
 }
 
-.entryBar {
+.entryBar,
+.entryEdit {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.entryEdit {
+  padding-left: 0;
+}
+
 .newButton {
   width: 75px;
   height: 40px;
+}
+
+.entryTitle,
+.editPen {
+  display: inline;
 }
 
 li {
