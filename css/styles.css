@@ -88,10 +88,15 @@ button {
   padding-left: 0;
 }
 
-.entryBar {
+.entryBar,
+.entryEdit {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.entryEdit {
+  padding-left: 0;
 }
 
 .newButton {
@@ -99,12 +104,27 @@ button {
   height: 40px;
 }
 
+.entryTitle,
+.editPen {
+  display: inline;
+}
+
 li {
   margin-bottom: 1.5rem;
 }
 
-.tab {
+.tab,
+.editPen {
   cursor: pointer;
+}
+
+.editPen {
+  color: #7b2cbf;
+  font-size: 1.5rem;
+}
+
+.editPen:hover {
+  color: #562b81;
 }
 
 .pd-l-75 {
