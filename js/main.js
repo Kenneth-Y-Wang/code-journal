@@ -4,7 +4,7 @@
 var $photoUrl = document.querySelector('#photoUrl');
 var $picView = document.querySelector('.picView');
 
-function showPicture(event) {
+function showPicture(event) { // here show the img right away
   if (event.target.value !== '') {
     $picView.setAttribute('src', event.target.value);
   }
@@ -14,6 +14,7 @@ $photoUrl.addEventListener('input', showPicture);
 
 var $entryForm = document.querySelector('#entryForm');
 
+// the whole submit process
 $entryForm.addEventListener('submit', function () {
   event.preventDefault();
   var entryData = {};
@@ -21,14 +22,38 @@ $entryForm.addEventListener('submit', function () {
   entryData.photoUrl = $entryForm.elements.photoUrl.value;
   entryData.notes = $entryForm.elements.notes.value;
   entryData.entryId = data.nextEntryId;
-  data.entries.unshift(entryData);
-  data.nextEntryId++;
-  $newEntries.prepend(renderData(entryData));
+
+  if (data.editing !== null) {
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === data.editing.entryId) {
+        data.entries[i].title = entryData.title;
+        data.entries[i].photoUrl = entryData.photoUrl;
+        data.entries[i].notes = entryData.notes;
+        var $allEntry = document.querySelectorAll('.allEntries');
+        // console.log($allEntry);
+        for (var j = 0; j < $allEntry.length; j++) {
+          if ($allEntry[i].getAttribute('data-entry-id') === String(data.editing.entryId)) {
+            $allEntry[i].replaceWith(renderData(data.entries[i]));
+          }
+        }
+
+        // renderData(data.editing).replaceWith(renderData(data.entries[i]));
+        // data.editing = null;
+      }
+    }
+  } else {
+    data.entries.unshift(entryData);
+    data.nextEntryId++;
+    $newEntries.prepend(renderData(entryData));
+
+  }
+
   $picView.setAttribute('src', 'images/placeholder-image-square.jpg');
   $entryForm.reset();
-
+  data.editing = null;
 });
 
+// reload the page to display everything and/after refeashing
 function entryDisplay(event) {
   for (var i = 0; i < data.entries.length; i++) {
     var $newEntry = renderData(data.entries[i]);
@@ -40,6 +65,7 @@ function entryDisplay(event) {
 
 document.addEventListener('DOMContentLoaded', entryDisplay);
 
+// here starts with the pen editing part
 var $entryView = document.querySelector('#entry-view');
 var $title = document.querySelector('#title');
 var $notes = document.querySelector('#notes');
@@ -80,7 +106,7 @@ $entryView.addEventListener('click', function (event) {
 
 // updated dom tree
 
-// < li class="row" >
+// < li class="row allEntries" data-entry-id =''>
 //  <div class=" column-half">
 //    <div class="picHolder"><img class="picView" src="images/placeholder-image-square.jpg"></div>
 //    </div>
@@ -95,11 +121,13 @@ $entryView.addEventListener('click', function (event) {
 //    </div>
 //  </li >
 
+// here starts the render process
 var $newEntries = document.querySelector('.list-group');
 
 function renderData(data) {
   var $newList = document.createElement('li');
-  $newList.setAttribute('class', 'row');
+  $newList.setAttribute('class', 'row allEntries'); // just added
+  $newList.setAttribute('data-entry-id', data.entryId); // just added
 
   var $listPic = document.createElement('div');
   $listPic.setAttribute('class', 'column-half');
@@ -143,6 +171,7 @@ function renderData(data) {
   return $newList;
 }
 
+// here start with the view swapping
 var $tabList = document.querySelector('.tabList');
 var $view = document.querySelectorAll('.view');
 var $newButton = document.querySelector('.newButton');
@@ -166,6 +195,8 @@ function handleViewNav(event) {
   var dataView = event.target.getAttribute('data-view');
   viewchange(dataView);
   $formTitle.textContent = 'New Entry';
+  // $entryForm.reset(); // tryyyyyyyyyyyyyyyy
+  // data.editing = null; // lastttttttttttttttt entry
 }
 
 $tabList.addEventListener('click', handleViewNav);
