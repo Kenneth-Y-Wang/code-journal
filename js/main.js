@@ -57,11 +57,11 @@ var $deleteTag = document.querySelector('.deleteTag');
 var $modalHolder = document.querySelector('.modalHolder');
 var $cancel = document.querySelector('.cancel');
 var $confirm = document.querySelector('.confirm');
-var modal = true;
+var modal = false;
 
 function callModal(event) {
   modal = !modal;
-  if (modal === false) {
+  if (modal === true) {
     $modalHolder.className = ' modalHolder';
   } else {
     $modalHolder.className = ' modalHolder hidden';
@@ -86,6 +86,7 @@ $confirm.addEventListener('click', function () {
 
   viewChange(event.target.getAttribute('data-view'));
   callModal(event);
+  $deleteTag.className = 'deleteTag noShow';
 });
 
 $deleteTag.addEventListener('click', callModal);
