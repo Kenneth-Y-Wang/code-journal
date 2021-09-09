@@ -1,6 +1,7 @@
 /* global data */
 /* exported data */
 
+// show pic starts here
 var $photoUrl = document.querySelector('#photoUrl');
 var $picView = document.querySelector('.picView');
 
@@ -32,8 +33,8 @@ $entryForm.addEventListener('submit', function () {
         var $allEntry = document.querySelectorAll('.allEntries');
 
         for (var j = 0; j < $allEntry.length; j++) {
-          if ($allEntry[i].getAttribute('data-entry-id') === String(data.editing.entryId)) {
-            $allEntry[i].replaceWith(renderData(data.entries[i]));
+          if ($allEntry[j].getAttribute('data-entry-id') === String(data.editing.entryId)) {
+            $allEntry[j].replaceWith(renderData(data.entries[i]));
           }
         }
       }
@@ -49,6 +50,46 @@ $entryForm.addEventListener('submit', function () {
   $entryForm.reset();
   data.editing = null;
 });
+
+// here start the delete process
+
+var $deleteTag = document.querySelector('.deleteTag');
+var $modalHolder = document.querySelector('.modalHolder');
+var $cancel = document.querySelector('.cancel');
+var $confirm = document.querySelector('.confirm');
+var modal = true;
+
+function callModal(event) {
+  modal = !modal;
+  if (modal === false) {
+    $modalHolder.className = ' modalHolder';
+  } else {
+    $modalHolder.className = ' modalHolder hidden';
+  }
+}
+
+$confirm.addEventListener('click', function () {
+
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === data.editing.entryId) {
+      data.entries.splice(i, 1);
+
+      var $allEntry = document.querySelectorAll('.allEntries');
+
+      for (var j = 0; j < $allEntry.length; j++) {
+        if ($allEntry[j].getAttribute('data-entry-id') === String(data.editing.entryId)) {
+          $allEntry[j].remove();
+        }
+      }
+    }
+  }
+
+  viewChange(event.target.getAttribute('data-view'));
+  callModal(event);
+});
+
+$deleteTag.addEventListener('click', callModal);
+$cancel.addEventListener('click', callModal);
 
 // reload the page to display everything and/after refeashing
 function entryDisplay(event) {
@@ -82,6 +123,7 @@ $entryView.addEventListener('click', function (event) {
       $notes.value = data.entries[i].notes;
       $picView.setAttribute('src', data.entries[i].photoUrl);
       data.editing = data.entries[i];
+      $deleteTag.className = 'deleteTag';
 
     }
   }
