@@ -29,9 +29,20 @@
       </div>
     </div>
     <header>
-      <div class=" tabList container">
-        <a><h2 class=" tab appTitle pd-l-75" data-view="entry-form" >Code Journal</h2></a>
-        <a><h3 class=" tab entries" data-view="entries">Entries</h3></a>
+      <div class=" tabList container column-full space-between">
+        <div class=" tabLeft row column-one-third align-center">
+          <a><h2 class=" tab appTitle" data-view="entry-form" >Code Journal</h2></a>
+          <a><h3 class=" tab entries" data-view="entries">Entries</h3></a>
+        </div>
+        <form id="searchEntry" class="column-half">
+          <button class="searchButton" data-view="entries" type="submit"><i class="fas fa-search"></i></button>
+          <input
+          required
+          name="keyWord"
+          id="keyWord"
+          type="text"
+          placeholder="Search...">
+        </form>
       </div>
     </header>
     <main class="container">
@@ -73,7 +84,10 @@
       </div>
       <div class="view hidden" id="entry-view" data-view="entries">
         <div class="entryBar column-full">
-          <h1 class="formTitle">Entries</h1>
+          <div class=" entryTabs column-one-third row align-center" >
+            <h1 class="formTitle">Entries</h1>
+            <a class="showAll noShow">Show All</a>
+          </div>
           <button class="tab newButton" data-view="entry-form" type="button">NEW</button>
         </div>
         <ul id="entries-list" class= "list-group"></ul>
