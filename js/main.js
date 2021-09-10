@@ -48,6 +48,7 @@ $entryForm.addEventListener('submit', function () {
 
   $picView.setAttribute('src', 'images/placeholder-image-square.jpg');
   $entryForm.reset();
+  viewChange('entries');
   data.editing = null;
 });
 
@@ -214,7 +215,7 @@ function renderData(data) {
 var $tabList = document.querySelector('.tabList');
 var $view = document.querySelectorAll('.view');
 var $newButton = document.querySelector('.newButton');
-var $submitButton = document.querySelector('.submitButton');
+// var $submitButton = document.querySelector('.submitButton');
 
 function viewChange(string) {
   for (var i = 0; i < $view.length; i++) {
@@ -234,8 +235,10 @@ function handleViewNav(event) {
   var dataView = event.target.getAttribute('data-view');
   viewChange(dataView);
   $formTitle.textContent = 'New Entry';
+  $entryForm.reset();
+  $picView.setAttribute('src', 'images/placeholder-image-square.jpg');
+
 }
 
 $tabList.addEventListener('click', handleViewNav);
 $newButton.addEventListener('click', handleViewNav);
-$submitButton.addEventListener('click', handleViewNav);
