@@ -43,6 +43,43 @@
   background-color: #ee6055;
 }
 
+#searchEntry {
+  display: flex;
+  align-items: center;
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+}
+
+#keyWord {
+  display: inline-block;
+  margin-top: auto;
+  margin-bottom: auto;
+  border: none;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.searchButton {
+  background-color: #973aa8;
+  color: white;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.entryTabs {
+  padding-left: 0;
+}
+
+.showAll {
+  color: #ac46a1;
+  font-size: 1.1rem;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 1.5rem;
+}
+
 header {
   background-color: #48266d;
   color: white;
@@ -56,9 +93,16 @@ body {
   font-family: 'Proza Libre', sans-serif;
 }
 
+.tabList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 .appTitle {
   font-weight: 400;
   display: inline-block;
+  margin-left: 0.75rem;
 }
 
 .entries {
@@ -80,6 +124,11 @@ body {
   height: 350px;
   object-fit: cover;
   border-radius: 2%;
+  transition-duration: 0.5s;
+}
+
+.picHolder > img:hover {
+  transform: scale(1.05);
 }
 
 label,
@@ -159,6 +208,19 @@ button {
 .newButton {
   width: 75px;
   height: 40px;
+  box-shadow: 5px 5px 15px -5px rgba(127, 18, 120, 0.46);
+  transition-duration: 0.5s;
+}
+
+.submitButton {
+  box-shadow: 5px 5px 15px -5px rgba(127, 18, 120, 0.46);
+  transition-duration: 0.5s;
+}
+
+.newButton:hover,
+.submitButton:hover {
+  background-color: #822faf;
+  transform: scale(1.1);
 }
 
 .entryTitle,
@@ -178,9 +240,11 @@ li {
 .editPen {
   color: #7b2cbf;
   font-size: 1.5rem;
+  transition-duration: 0.5s;
 }
 
 .editPen:hover {
+  transform: scale(1.2);
   color: #562b81;
 }
 
@@ -190,6 +254,10 @@ li {
 
 .align-center {
   align-items: center;
+}
+
+.align-centent {
+  align-content: center;
 }
 
 .space-between {
@@ -206,5 +274,15 @@ li {
     height: 400px;
     object-fit: cover;
     border-radius: 2%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #searchEntry {
+    display: flex;
+    align-items: center;
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+    margin-bottom: 0.75rem;
   }
 }

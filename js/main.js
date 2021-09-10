@@ -87,6 +87,7 @@ function deleteEntry(event) {
   viewChange(event.target.getAttribute('data-view'));
   callModal(event);
   $deleteTag.className = 'deleteTag noShow';
+  $showAll.className = 'showAll noShow';
   data.editing = null;
 }
 
@@ -105,6 +106,37 @@ function entryDisplay(event) {
 }
 
 document.addEventListener('DOMContentLoaded', entryDisplay);
+
+// here starts the search part
+
+var $searchEntry = document.querySelector('#searchEntry');
+var $showAll = document.querySelector('.showAll');
+
+$searchEntry.addEventListener('submit', function () {
+  event.preventDefault();
+  var $allEntry = document.querySelectorAll('.allEntries');
+
+  for (var i = 0; i < $allEntry.length; i++) {
+    if (($allEntry[i].getAttribute('data-entry-title')).toLowerCase().indexOf(($searchEntry.elements.keyWord.value).toLowerCase()) === -1 && ($allEntry[i].getAttribute('data-entry-notes')).toLowerCase().indexOf(($searchEntry.elements.keyWord.value).toLowerCase()) === -1) {
+      $allEntry[i].className = 'row allEntries hidden';
+    } else {
+      $allEntry[i].className = ' row allEntries';
+    }
+  }
+  viewChange('entries');
+  $searchEntry.reset();
+  $showAll.className = 'showAll';
+
+});
+
+function showAll(event) {
+  var $allEntry = document.querySelectorAll('.allEntries');
+  for (var i = 0; i < $allEntry.length; i++) {
+    $allEntry[i].className = ' row allEntries';
+  }
+}
+
+$showAll.addEventListener('click', showAll);
 
 // here starts with the pen editing part
 var $entryView = document.querySelector('#entry-view');
@@ -146,7 +178,7 @@ $entryView.addEventListener('click', function (event) {
 
 // updated dom tree
 
-// < li class="row allEntries" data-entry-id =''>
+// < li class="row allEntries" data-entry-id ='' data-entry-title='' data-entry-notes=''>
 //  <div class=" column-half">
 //    <div class="picHolder"><img class="picView" src="images/placeholder-image-square.jpg"></div>
 //    </div>
@@ -168,6 +200,8 @@ function renderData(data) {
   var $newList = document.createElement('li');
   $newList.setAttribute('class', 'row allEntries');
   $newList.setAttribute('data-entry-id', data.entryId);
+  $newList.setAttribute('data-entry-title', data.title);
+  $newList.setAttribute('data-entry-notes', data.notes);
 
   var $listPic = document.createElement('div');
   $listPic.setAttribute('class', 'column-half');
@@ -237,6 +271,7 @@ function handleViewNav(event) {
   $formTitle.textContent = 'New Entry';
   $entryForm.reset();
   $picView.setAttribute('src', 'images/placeholder-image-square.jpg');
+  $showAll.className = 'showAll noShow';
 
 }
 
