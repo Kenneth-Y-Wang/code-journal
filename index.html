@@ -18,6 +18,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Proza+Libre:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="wholePage">
+    <div class="modalHolder hidden">
+      <div class="deleteBlock">
+        <h4 class="deleteMessage">Are you sure you want to delete this entry?</h4>
+        <div class="buttonHolder column-full">
+          <button class="cancel" type="button">CANCEL</button>
+          <button class="confirm" data-view="entries" type="button">CONFIRM</button>
+        </div>
+      </div>
+    </div>
     <header>
       <div class=" tabList container">
         <a><h2 class=" tab appTitle pd-l-75" data-view="entry-form" >Code Journal</h2></a>
@@ -55,6 +65,7 @@
               id="notes"></textarea>
             </div>
             <div class="submitAction column-full">
+              <a class="deleteTag noShow">Delete Entry</a>
               <button class="tab submitButton" data-view="entries" type="submit">SAVE</button>
             </div>
           </div>
@@ -70,5 +81,6 @@
     </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
+  </div>
 </body>
 </html>

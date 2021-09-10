@@ -1,3 +1,48 @@
+.wholePage {
+  width: 100%;
+  position: relative;
+}
+
+.modalHolder {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.deleteBlock {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border: none;
+  text-align: center;
+}
+
+.deleteMessage {
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+.buttonHolder {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel {
+  background-color: #bcb8b1;
+  color: black;
+}
+
+.confirm {
+  background-color: #ee6055;
+}
+
 header {
   background-color: #48266d;
   color: white;
@@ -81,7 +126,19 @@ button {
 
 .submitAction {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.deleteTag {
+  color: #e5383b;
+  text-decoration: underline;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.deleteTag:hover {
+  color: #cb1b16;
 }
 
 .list-group {
@@ -137,6 +194,10 @@ li {
 
 .space-between {
   justify-content: space-between;
+}
+
+.noShow {
+  visibility: hidden;
 }
 
 @media screen and (min-width: 768px) {

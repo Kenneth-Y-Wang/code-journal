@@ -1,6 +1,7 @@
 /* global data */
 /* exported data */
 
+// show pic starts here
 var $photoUrl = document.querySelector('#photoUrl');
 var $picView = document.querySelector('.picView');
 
@@ -32,8 +33,8 @@ $entryForm.addEventListener('submit', function () {
         var $allEntry = document.querySelectorAll('.allEntries');
 
         for (var j = 0; j < $allEntry.length; j++) {
-          if ($allEntry[i].getAttribute('data-entry-id') === String(data.editing.entryId)) {
-            $allEntry[i].replaceWith(renderData(data.entries[i]));
+          if ($allEntry[j].getAttribute('data-entry-id') === String(data.editing.entryId)) {
+            $allEntry[j].replaceWith(renderData(data.entries[i]));
           }
         }
       }
@@ -47,8 +48,51 @@ $entryForm.addEventListener('submit', function () {
 
   $picView.setAttribute('src', 'images/placeholder-image-square.jpg');
   $entryForm.reset();
+  viewChange('entries');
   data.editing = null;
 });
+
+// here start the delete process
+
+var $deleteTag = document.querySelector('.deleteTag');
+var $modalHolder = document.querySelector('.modalHolder');
+var $cancel = document.querySelector('.cancel');
+var $confirm = document.querySelector('.confirm');
+var modal = false;
+
+function callModal(event) {
+  modal = !modal;
+  if (modal === true) {
+    $modalHolder.className = ' modalHolder';
+  } else {
+    $modalHolder.className = ' modalHolder hidden';
+  }
+}
+
+function deleteEntry(event) {
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === data.editing.entryId) {
+      data.entries.splice(i, 1);
+
+      var $allEntry = document.querySelectorAll('.allEntries');
+
+      for (var j = 0; j < $allEntry.length; j++) {
+        if ($allEntry[j].getAttribute('data-entry-id') === String(data.editing.entryId)) {
+          $allEntry[j].remove();
+        }
+      }
+    }
+  }
+
+  viewChange(event.target.getAttribute('data-view'));
+  callModal(event);
+  $deleteTag.className = 'deleteTag noShow';
+  data.editing = null;
+}
+
+$confirm.addEventListener('click', deleteEntry);
+$deleteTag.addEventListener('click', callModal);
+$cancel.addEventListener('click', callModal);
 
 // reload the page to display everything and/after refeashing
 function entryDisplay(event) {
@@ -82,6 +126,7 @@ $entryView.addEventListener('click', function (event) {
       $notes.value = data.entries[i].notes;
       $picView.setAttribute('src', data.entries[i].photoUrl);
       data.editing = data.entries[i];
+      $deleteTag.className = 'deleteTag';
 
     }
   }
@@ -170,7 +215,7 @@ function renderData(data) {
 var $tabList = document.querySelector('.tabList');
 var $view = document.querySelectorAll('.view');
 var $newButton = document.querySelector('.newButton');
-var $submitButton = document.querySelector('.submitButton');
+// var $submitButton = document.querySelector('.submitButton');
 
 function viewChange(string) {
   for (var i = 0; i < $view.length; i++) {
@@ -190,8 +235,10 @@ function handleViewNav(event) {
   var dataView = event.target.getAttribute('data-view');
   viewChange(dataView);
   $formTitle.textContent = 'New Entry';
+  $entryForm.reset();
+  $picView.setAttribute('src', 'images/placeholder-image-square.jpg');
+
 }
 
 $tabList.addEventListener('click', handleViewNav);
 $newButton.addEventListener('click', handleViewNav);
-$submitButton.addEventListener('click', handleViewNav);
