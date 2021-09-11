@@ -302,6 +302,7 @@ function handleViewNav(event) {
   $entryForm.reset();
   $picView.setAttribute('src', 'images/placeholder-image-square.jpg');
   $showAll.className = 'showAll noShow';
+  $deleteTag.className = 'deleteTag noShow';
 
 }
 
