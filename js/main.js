@@ -136,6 +136,7 @@ function showAll(event) {
   for (var i = 0; i < $allEntry.length; i++) {
     $allEntry[i].className = ' row allEntries';
   }
+  $showAll.className = 'showAll noShow';
 }
 
 $showAll.addEventListener('click', showAll);
