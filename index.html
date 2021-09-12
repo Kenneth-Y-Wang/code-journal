@@ -15,7 +15,9 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Proza+Libre:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&family=Proza+Libre:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
 </head>
 <body>
   <div class="wholePage">
@@ -66,6 +68,13 @@
               name="photoUrl"
               id="photoUrl"
               type="url">
+              <label for="tag">What for?</label>
+              <select required id="tag" name="tag">
+                <option value="nothing">Select an option</option>
+                <option value="Personal">Personal Interest</option>
+                <option value="Business">Business Related</option>
+                <option value="Education">For School</option>
+              </select>
             </div>
             <div class="column-full">
               <label class="forNote" for="notes">Notes</label>

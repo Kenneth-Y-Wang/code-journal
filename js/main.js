@@ -22,6 +22,7 @@ $entryForm.addEventListener('submit', function () {
   entryData.title = $entryForm.elements.title.value;
   entryData.photoUrl = $entryForm.elements.photoUrl.value;
   entryData.notes = $entryForm.elements.notes.value;
+  entryData.tag = $entryForm.elements.tag.value;
   entryData.entryId = data.nextEntryId;
 
   if (data.editing !== null) {
@@ -30,6 +31,7 @@ $entryForm.addEventListener('submit', function () {
         data.entries[i].title = entryData.title;
         data.entries[i].photoUrl = entryData.photoUrl;
         data.entries[i].notes = entryData.notes;
+        data.entries[i].tag = entryData.tag;
         var $allEntry = document.querySelectorAll('.allEntries');
 
         for (var j = 0; j < $allEntry.length; j++) {
@@ -117,7 +119,7 @@ $searchEntry.addEventListener('submit', function () {
   var $allEntry = document.querySelectorAll('.allEntries');
 
   for (var i = 0; i < $allEntry.length; i++) {
-    if (($allEntry[i].getAttribute('data-entry-title')).toLowerCase().indexOf(($searchEntry.elements.keyWord.value).toLowerCase()) === -1 && ($allEntry[i].getAttribute('data-entry-notes')).toLowerCase().indexOf(($searchEntry.elements.keyWord.value).toLowerCase()) === -1) {
+    if (($allEntry[i].getAttribute('data-entry-title')).toLowerCase().indexOf(($searchEntry.elements.keyWord.value).toLowerCase()) === -1 && ($allEntry[i].getAttribute('data-entry-notes')).toLowerCase().indexOf(($searchEntry.elements.keyWord.value).toLowerCase()) === -1 && ($allEntry[i].getAttribute('data-entry-tag')).toLowerCase().indexOf(($searchEntry.elements.keyWord.value).toLowerCase()) === -1) {
       $allEntry[i].className = 'row allEntries hidden';
     } else {
       $allEntry[i].className = ' row allEntries';
@@ -134,17 +136,35 @@ function showAll(event) {
   for (var i = 0; i < $allEntry.length; i++) {
     $allEntry[i].className = ' row allEntries';
   }
+  $showAll.className = 'showAll noShow';
 }
 
 $showAll.addEventListener('click', showAll);
 
-// here starts with the pen editing part
+// here starts with the pen editing part and sort tags
 var $entryView = document.querySelector('#entry-view');
 var $title = document.querySelector('#title');
 var $notes = document.querySelector('#notes');
+var $tag = document.querySelector('#tag');
 var $formTitle = document.querySelector('.formTitle');
 
-$entryView.addEventListener('click', function (event) {
+function sortTag(event) {
+  if (event.target.matches('.entryTag') === false) {
+    return;
+  }
+  var $allEntry = document.querySelectorAll('.allEntries');
+
+  for (var i = 0; i < $allEntry.length; i++) {
+    if ($allEntry[i].getAttribute('data-entry-tag') === event.target.getAttribute('data-entry-tag')) {
+      $allEntry[i].className = ' row allEntries';
+    } else {
+      $allEntry[i].className = 'row allEntries hidden';
+    }
+  }
+  $showAll.className = 'showAll';
+}
+
+function editEntry(event) {
   if (event.target.matches('.editPen') === false) {
     return;
   }
@@ -156,14 +176,17 @@ $entryView.addEventListener('click', function (event) {
       $title.value = data.entries[i].title;
       $photoUrl.value = data.entries[i].photoUrl;
       $notes.value = data.entries[i].notes;
+      $tag.value = data.entries[i].tag;
       $picView.setAttribute('src', data.entries[i].photoUrl);
       data.editing = data.entries[i];
       $deleteTag.className = 'deleteTag';
 
     }
   }
+}
+$entryView.addEventListener('click', sortTag);
 
-});
+$entryView.addEventListener('click', editEntry);
 
 // <li class="row">
 //  <div class=" column-half">
@@ -178,20 +201,21 @@ $entryView.addEventListener('click', function (event) {
 
 // updated dom tree
 
-// < li class="row allEntries" data-entry-id ='' data-entry-title='' data-entry-notes=''>
+// <li class="row allEntries" data-entry-id ='' data-entry-title='' data-entry-notes='' data-entry-tag=''>
 //  <div class=" column-half">
 //    <div class="picHolder"><img class="picView" src="images/placeholder-image-square.jpg"></div>
-//    </div>
+//  </div>
 //  <div class="column-half entryInfo">
 //    <div class="entryEdit column-full">
 //     <h2 class="entryTitle">Marvels Movie</h2>
 //     <i class=" editPen fas fa-pen" data-entry-id ='' data-view="entry-form" ></i>
 //    </div>
+//    <h3 class="entryTag" data-entry-tag=''>...<h3>
 //    <p class="entryNote">Our salute to Captain America and his uniforms in the MCU. Which is your favorite? Complete
 //     your Marvel Studios' Captain
 //    America collection on Digital now!</p>
-//    </div>
-//  </li >
+//  </div>
+// </li >
 
 // here starts the render process
 var $newEntries = document.querySelector('.list-group');
@@ -202,6 +226,7 @@ function renderData(data) {
   $newList.setAttribute('data-entry-id', data.entryId);
   $newList.setAttribute('data-entry-title', data.title);
   $newList.setAttribute('data-entry-notes', data.notes);
+  $newList.setAttribute('data-entry-tag', data.tag);
 
   var $listPic = document.createElement('div');
   $listPic.setAttribute('class', 'column-half');
@@ -227,6 +252,11 @@ function renderData(data) {
   $editPen.setAttribute('data-entry-id', data.entryId);
   $editPen.setAttribute('data-view', 'entry-form');
 
+  var $entryTag = document.createElement('h3');
+  $entryTag.setAttribute('class', 'entryTag');
+  $entryTag.textContent = data.tag;
+  $entryTag.setAttribute('data-entry-tag', data.tag);
+
   var $entryNote = document.createElement('p');
   $entryNote.textContent = data.notes;
 
@@ -237,6 +267,7 @@ function renderData(data) {
   $picHolder.appendChild($pic);
 
   $entryInfo.appendChild($entryEdit);
+  $entryInfo.appendChild($entryTag);
   $entryInfo.appendChild($entryNote);
 
   $entryEdit.appendChild($entryTitle);
@@ -272,6 +303,7 @@ function handleViewNav(event) {
   $entryForm.reset();
   $picView.setAttribute('src', 'images/placeholder-image-square.jpg');
   $showAll.className = 'showAll noShow';
+  $deleteTag.className = 'deleteTag noShow';
 
 }
 
